@@ -1,0 +1,37 @@
+SL,State,Cyber_Total_I,Cyber_Total_V,Cyber_Total_R,Explicit_I,Explicit_V,Explicit_R,Other_I,Other_V,Other_R
+1,Andhra Pradesh,2,2,0,2,2,0,0,0,0
+2,Arunachal Pradesh,1,1,0.2,0,0,0,1,1,0.2
+3,Assam,7,11,0.1,6,10,0.1,1,1,0
+4,Bihar,0,0,0,0,0,0,0,0,0
+5,Chhattisgarh,4,4,0,3,3,0,1,1,0
+6,Goa,0,0,0,0,0,0,0,0,0
+7,Gujarat,2,2,0,1,1,0,1,1,0
+8,Haryana,3,3,0,3,3,0,0,0,0
+9,Himachal Pradesh,9,9,0.4,8,8,0.4,1,1,0
+10,Jammu & Kashmir,0,0,0,0,0,0,0,0,0
+11,Jharkhand,0,0,0,0,0,0,0,0,0
+12,Karnataka,10,10,0.1,2,2,0,8,8,0
+13,Kerala,30,30,0.3,27,27,0.3,3,3,0
+14,Madhya Pradesh,9,11,0,8,10,0,1,1,0
+15,Maharashtra,6,6,0,6,6,0,0,0,0
+16,Manipur,1,1,0.1,1,1,0.1,0,0,0
+17,Meghalaya,0,0,0,0,0,0,0,0,0
+18,Mizoram,0,0,0,0,0,0,0,0,0
+19,Nagaland,0,0,0,0,0,0,0,0,0
+20,Odisha,3,3,0,2,2,0,1,1,0
+21,Punjab,1,1,0,1,1,0,0,0,0
+22,Rajasthan,4,4,0,3,3,0,1,1,0
+23,Sikkim,0,0,0,0,0,0,0,0,0
+24,Tamil Nadu,5,5,0,3,3,0,2,2,0
+25,Telangana,0,0,0,0,0,0,0,0,0
+26,Tripura,0,0,0,0,0,0,0,0,0
+27,Uttar Pradesh,65,65,0.1,25,25,0,40,40,0
+28,Uttarakhand,0,0,0,0,0,0,0,0,0
+29,West Bengal,1,1,0,0,0,0,1,1,0
+30,A&N Islands,0,0,0,0,0,0,0,0,0
+31,Chandigarh,0,0,0,0,0,0,0,0,0
+32,D&N Haveli,0,0,0,0,0,0,0,0,0
+33,Daman & Diu,0,0,0,0,0,0,0,0,0
+34,Delhi,1,1,0,1,1,0,0,0,0
+35,Lakshadweep,0,0,0,0,0,0,0,0,0
+36,Puducherry,0,0,0,0,0,0,0,0,0

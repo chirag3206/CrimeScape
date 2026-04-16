@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+
+#Large Raw Data (Optional - Include if you want)
+NCRB_Files/
+
+# OS files
+.DS_Store
+Thumbs.db

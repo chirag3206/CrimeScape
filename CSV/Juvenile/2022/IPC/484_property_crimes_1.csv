@@ -1,0 +1,39 @@
+SL,State,Theft,Burglary,Extortion_Blackmail,Robbery,Attempt_Dacoity_Robbery,Dacoity,Preparation_Dacoity
+360,r/w g (Sec,384,395,397,97,380,389,393
+399,&,402,1,2,31,32,33,34
+1,Andhra Pradesh,337,134,2,18,1,7,9
+2,Arunachal Pradesh,1,0,0,0,0,0,0
+3,Assam,66,5,0,3,0,1,0
+4,Bihar,228,35,0,21,0,3,0
+5,Chhattisgarh,154,188,1,42,0,8,1
+6,Goa,1,1,0,1,0,0,0
+7,Gujarat,447,101,5,40,0,10,2
+8,Haryana,206,100,5,27,1,17,2
+9,Himachal Pradesh,22,12,0,0,0,1,0
+10,Jharkhand,12,3,0,2,0,0,0
+11,Karnataka,93,20,0,27,1,5,12
+12,Kerala,56,30,0,3,0,0,0
+13,Madhya Pradesh,667,276,5,71,0,9,14
+14,Maharashtra,972,278,7,247,3,65,12
+15,Manipur,0,0,0,0,0,0,0
+16,Meghalaya,5,2,0,0,0,3,0
+17,Mizoram,13,2,0,0,0,0,0
+18,Nagaland,2,0,1,0,0,0,0
+19,Odisha,407,83,1,20,0,13,0
+20,Punjab,52,29,2,4,0,1,0
+21,Rajasthan,507,197,10,101,0,7,6
+22,Sikkim,0,0,0,0,0,0,0
+23,Tamil Nadu,481,153,8,163,4,10,6
+24,Telangana,363,118,13,18,1,8,0
+25,Tripura,0,0,0,0,0,0,0
+26,Uttar Pradesh,160,73,0,25,3,0,0
+27,Uttarakhand,18,13,0,6,0,0,0
+28,West Bengal,65,1,0,1,0,0,15
+29,A&N Islands,0,1,0,0,0,0,0
+30,Chandigarh,20,4,0,3,0,1,0
+31,D&N Haveli and Daman & Diu,5,5,0,0,0,0,0
+32,Delhi,1075,99,3,339,0,6,0
+33,Jammu & Kashmir,17,18,0,3,0,1,0
+34,Ladakh,0,0,0,0,0,0,0
+35,Lakshadweep,0,0,0,0,0,0,0
+36,Puducherry,11,2,0,1,0,0,0

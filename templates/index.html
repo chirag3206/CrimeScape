@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NCRB Senior Analytics Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body class="dark-theme">
+    <div class="app-container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="logo">
+                <i class="fas fa-shield-halved"></i>
+                <span>NYAY<span>ANALYTICS</span></span>
+            </div>
+            <ul class="nav-links">
+                <li class="active" data-tab="overview"><i class="fas fa-chart-line"></i> Dashboard</li>
+                <li data-tab="ml-gallery"><i class="fas fa-brain"></i> ML Research</li>
+                <li data-tab="regional-map"><i class="fas fa-map-location-dot"></i> Regional Map</li>
+                <li data-tab="comparison-lab"><i class="fas fa-code-compare"></i> Comparison Lab</li>
+                <li data-tab="predictor"><i class="fas fa-bolt"></i> Risk Predictor</li>
+            </ul>
+            <div class="sidebar-footer">
+                <p>NCRB Intelligence v2.0</p>
+                <span>Senior Data Scientist Edition</span>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="content">
+            <header>
+                <div class="header-info">
+                    <h1 id="page-title">Executive Overview</h1>
+                    <p id="page-desc">Comprehensive crime intelligence and statistical modeling (2019-2023)</p>
+                </div>
+                <div class="user-profile">
+                    <div class="status-badge">System: Online</div>
+                </div>
+            </header>
+
+            <!-- Tab: Overview -->
+            <section id="overview" class="tab-content active">
+                <div class="stats-grid">
+                    <div class="stat-card glass">
+                        <h3>Processed Records</h3>
+                        <p class="value" id="total-records">71,662</p>
+                        <span class="subtext">265 Unique Crime Types</span>
+                    </div>
+                    <div class="stat-card glass">
+                        <h3>Critical Hub</h3>
+                        <p class="value highlight" id="worst-state">DELHI (UT)</p>
+                        <span class="subtext">Statistical Outlier (Z=3.06)</span>
+                    </div>
+                    <div class="stat-card glass">
+                        <h3>Reporting Consistency</h3>
+                        <p class="value" id="consistency">Variable</p>
+                        <span class="subtext">CV > 0.5 (All States)</span>
+                    </div>
+                </div>
+
+                <div class="main-grid">
+                    <div class="card glass chart-card">
+                        <div class="card-header">
+                            <h3>National Intensity Heatmap</h3>
+                            <span class="tag">Cross-Category</span>
+                        </div>
+                        <div class="image-container">
+                            <img src="/plots/advanced/heatmap_state_vs_category.png" alt="National Heatmap">
+                        </div>
+                    </div>
+                    <div class="card glass report-card">
+                        <div class="card-header">
+                            <h3>Latest Intelligence Report</h3>
+                        </div>
+                        <div class="report-box" id="report-text">
+                            Loading intelligence data...
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tab: ML Gallery -->
+            <section id="ml-gallery" class="tab-content">
+                <div class="gallery-controls">
+                    <button class="active" onclick="filterGallery('clustering')">Archetypes</button>
+                    <button onclick="filterGallery('importance')">Drivers</button>
+                </div>
+                <div class="image-gallery" id="gallery-container">
+                    <!-- Clustering Plots -->
+                    <div class="gallery-item clustering">
+                        <img src="/plots/clustering/dbscan_women.png" alt="Women Cluster">
+                        <p>Women Crime Clusters</p>
+                    </div>
+                    <div class="gallery-item clustering">
+                        <img src="/plots/clustering/dbscan_children.png" alt="Children Cluster">
+                        <p>Children Crime Clusters</p>
+                    </div>
+                    <!-- Importance Plots -->
+                    <div class="gallery-item importance hidden">
+                        <img src="/plots/importance/importance_women.png" alt="Importance Women">
+                        <p>Women Crime Drivers</p>
+                    </div>
+                    <div class="gallery-item importance hidden">
+                        <img src="/plots/importance/importance_children.png" alt="Importance Children">
+                        <p>Children Crime Drivers</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tab: Regional Map -->
+            <section id="regional-map" class="tab-content">
+                <div class="map-controls glass">
+                    <label>Select Domain View:</label>
+                    <select id="map-domain-select">
+                        <option value="Women">Women Crime Intensity</option>
+                        <option value="Children">Children Crime Intensity</option>
+                        <option value="Juvenile">Juvenile Justice Interaction</option>
+                        <option value="Human Traficking">Human Trafficking Density</option>
+                    </select>
+                    <p class="map-definition definition" style="margin: 0; margin-left: auto; text-align: right;">
+                        <strong>Predicted Intensity Index:</strong> Estimated 2026 crime rate per 100k citizens based on statistical growth trends.
+                    </p>
+                </div>
+                <div id="map-container" class="glass">
+                    <div id="heatmap"></div>
+                </div>
+            </section>
+
+            <!-- Tab: Comparison Lab -->
+            <section id="comparison-lab" class="tab-content">
+                <div class="comparison-header glass">
+                    <div class="comp-col">
+                        <label>State A</label>
+                        <select id="comp-state-1" class="state-dd"></select>
+                    </div>
+                    <div class="comp-divider"><i class="fas fa-circle-xmark"></i></div>
+                    <div class="comp-col">
+                        <label>State B</label>
+                        <select id="comp-state-2" class="state-dd"></select>
+                    </div>
+                </div>
+                
+                <div class="comparison-domain-bar">
+                    <select id="comp-domain-select">
+                        <option value="Women">Women Crimes</option>
+                        <option value="Children">Children Crimes</option>
+                        <option value="Juvenile">Juvenile Justice</option>
+                        <option value="Human Traficking">Human Trafficking</option>
+                    </select>
+                    <button id="run-comparison" class="primary-btn small">Initialize Head-to-Head Analysis</button>
+                </div>
+
+                <div class="comparison-grid" id="comp-results">
+                    <!-- Predicted Results will appear here side-by-side -->
+                    <div class="comparison-placeholder">
+                        <i class="fas fa-scale-balanced fa-4x"></i>
+                        <p>Select two regions for comparative intelligence assessment</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tab: Predictor -->
+            <section id="predictor" class="tab-content">
+                <div class="predictor-container glass">
+                    <div class="form-section">
+                        <h2>Threat Forecasting Center</h2>
+                        <p>Select parameters to generate a 2026 intelligence projection.</p>
+                        
+                        <div class="input-group">
+                            <label>Target State/UT</label>
+                            <select id="state-select">
+                                <option>Loading states...</option>
+                            </select>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label>Crime Domain</label>
+                            <select id="domain-select">
+                                <option value="Women">Women</option>
+                                <option value="Children">Children</option>
+                                <option value="Juvenile">Juvenile</option>
+                                <option value="Human Traficking">Human Trafficking</option>
+                            </select>
+                        </div>
+                        
+                        <button id="predict-btn" class="primary-btn">Generate Forcast (2026)</button>
+                    </div>
+
+                    <div class="result-section" id="prediction-result">
+                        <div class="empty-state">
+                            <i class="fas fa-radar fa-5x"></i>
+                            <p>Enter parameters and initialize analysis</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

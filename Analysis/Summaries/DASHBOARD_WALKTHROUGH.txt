@@ -1,0 +1,62 @@
+================================================================================
+          NYAYANALYTICS COMMAND CENTER: DASHBOARD USER GUIDE
+================================================================================
+Product: Premium NCRB Crime Intelligence Dashboard
+Platform: NyayAnalytics v2.0
+Document Date: April 15, 2026
+
+I. SIDEBAR NAVIGATION
+---------------------
+The dashboard is controlled via a high-aesthetic sidebar on the left:
+- Dashboard (Overview): The centralized hub for national-level metrics.
+- ML Research: Deep-dive into internal model visualizations.
+- Regional Map: Interactive geospatial intelligence layer.
+- Comparison Lab: Side-by-side behavioral analysis of two states.
+- Risk Predictor: Individual state forecasting and threat assessment.
+
+II. TAB 1: EXECUTIVE OVERVIEW
+-----------------------------
+The landing page for critical metrics:
+- Stats Grid: Shows the total processed records (71,600+) and flags the current statistical "Red-Zone" (Delhi UT).
+- National Intensity Heatmap: A high-level visualization showing how crime density varies across categories (Women, Children, etc.) at a glance.
+- Latest Intelligence Report: A live window scrolling through the core findings of our EDA (Exploratory Data Analysis).
+
+III. TAB 2: ML RESEARCH GALLERY
+-------------------------------
+A gallery of the model-specific outputs generated during the training phase:
+- Archetypes: Visualization of DBSCAN clusters (identifying which states share a similar crime DNA).
+- Drivers: Bar charts of "Feature Importance" (showing which specific law sections, like 498A or 354, are the biggest contributors to the overall crime rate).
+
+IV. TAB 3: REGIONAL MAP (GEOSPATIAL LAYER)
+------------------------------------------
+An interactive choropleth map powered by Leaflet.js:
+- Domain Selector: Toggle between Women, Children, Juvenile, and Trafficking maps.
+- Interactive Polygons: Every state in India is colored by its "Predicted 2026 Intensity."
+- Popups: Click or Hover on a state to see its name and its specific predicted crime index.
+- Legend: Colors range from Light Yellow (Lowest) to Deep Red (Highest intensity).
+
+V. TAB 4: COMPARISON LAB (HEAD-TO-HEAD)
+---------------------------------------
+A comparative simulation tool:
+- State Selectors: Two dropdown menus allow you to choose any two regions (e.g., Bihar vs. Kerala).
+- Joint Analysis: Clicking "Initialize" runs the prediction models for both states simultaneously.
+- Results: Displays side-by-side Intensity Indices and Risk Grades for a direct "Safety Benchmarking."
+
+VI. TAB 5: THREAT FORECASTING CENTER (PREDICTOR)
+-----------------------------------------------
+The most advanced part of the dashboard for individual target analysis:
+- Controls: Select a State and a Category.
+- Output Card: Generates a high-end Glassmorphism result card.
+- Metrics:
+    * Predicted Intensity Index (2026): A forecast of crimes per 100k population.
+    * Risk Grade (Sentinel): A "HIGH RISK" or "STABLE" badge based on national benchmarks.
+    * Subtitles: Each result now includes a short definition to help you interpret the numbers.
+
+VII. GLOSSARY OF TERMS
+-----------------------
+- INTENSITY INDEX: Crimes per 100,000 population. Used to compare big states fairly with small ones.
+- RISK GRADE: A binary classification label. If a state's "Intensity" is higher than the national median, it is flagged as "HIGH RISK."
+
+================================================================================
+                                END OF WALKTHROUGH
+================================================================================
