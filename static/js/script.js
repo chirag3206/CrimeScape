@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (tab === 'overview') desc.innerText = "Comprehensive crime intelligence and statistical modeling (2019-2023)";
         if (tab === 'ml-gallery') desc.innerText = "Visualization of state archetypes and dominant crime drivers";
         if (tab === 'predictor') desc.innerText = "Advanced ML projection center for future risk assessment";
+        if (tab === 'vision30') desc.innerText = "Vision 2030: Long-range Deep Learning forecasts and regional spillover analysis";
     }
 
     // 2. Load Initial Stats
@@ -279,5 +280,131 @@ document.addEventListener('DOMContentLoaded', () => {
         .finally(() => {
             compBtn.innerHTML = 'Initialize Head-to-Head Analysis';
         });
+    });
+
+    // 7. VISION 2030 INTELLIGENCE
+    let forecastChart = null;
+
+    function initVision30() {
+        // A. Load Risk Ledger
+        fetch('/api/dl/risk_report')
+            .then(res => res.json())
+            .then(data => {
+                const tbody = document.querySelector('#risk-ledger tbody');
+                tbody.innerHTML = '';
+                data.forEach(row => {
+                    const tr = document.createElement('tr');
+                    const gradeClass = row.Risk_Grade === 'CRITICAL' ? 'text-critical' : (row.Risk_Grade === 'HIGH' ? 'text-high' : '');
+                    tr.innerHTML = `
+                        <td>${row.State}</td>
+                        <td class="${gradeClass}">${row.Risk_Grade}</td>
+                        <td>${row.Risk_Score.toFixed(4)}</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            });
+
+        // B. Load Spatial Spillover
+        fetch('/api/dl/spatial')
+            .then(res => res.json())
+            .then(data => {
+                const container = document.getElementById('spillover-container');
+                container.innerHTML = '';
+                data.forEach(row => {
+                    const item = document.createElement('div');
+                    item.className = 'spillover-item';
+                    item.innerHTML = `
+                        <div class="spillover-header">
+                            <span>${row.State}</span>
+                            <span class="spillover-val">${row.Spatial_Spillover_Index.toFixed(4)}</span>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" style="width: ${row.Spatial_Spillover_Index * 100}%"></div>
+                        </div>
+                    `;
+                    container.appendChild(item);
+                });
+            });
+
+        // C. Populate State Select for Forecasts
+        fetch('/api/stats')
+            .then(res => res.json())
+            .then(data => {
+                const select = document.getElementById('v30-state-select');
+                select.innerHTML = '<option value="">Select State/UT</option>';
+                data.states.forEach(s => {
+                    const opt = document.createElement('option');
+                    opt.value = opt.innerText = s;
+                    select.appendChild(opt);
+                });
+                
+                // Auto-load Delhi as default
+                select.value = "Delhi (UT)";
+                fetch(`/api/dl/forecast/Delhi (UT)`)
+                    .then(res => res.json())
+                    .then(data => updateForecastChart(data));
+            });
+    }
+
+    document.getElementById('v30-state-select').addEventListener('change', (e) => {
+        const state = e.target.value;
+        if (!state) return;
+
+        fetch(`/api/dl/forecast/${state}`)
+            .then(res => res.json())
+            .then(data => {
+                updateForecastChart(data);
+            });
+    });
+
+    function updateForecastChart(data) {
+        const ctx = document.getElementById('forecastChart').getContext('2d');
+        const labels = data.trend.map(d => d.year);
+        const values = data.trend.map(d => d.intensity);
+
+        if (forecastChart) {
+            forecastChart.destroy();
+        }
+
+        forecastChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: `Intensity Index: ${data.state}`,
+                    data: values,
+                    borderColor: '#3b82f6',
+                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                    borderWidth: 3,
+                    tension: 0.4,
+                    fill: true,
+                    pointRadius: 5,
+                    pointBackgroundColor: '#3b82f6'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        grid: { color: 'rgba(255,255,255,0.05)' },
+                        ticks: { color: '#94a3b8' }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#94a3b8' }
+                    }
+                },
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
+    }
+
+    // Trigger initialization when tab is clicked
+    document.querySelector('[data-tab="vision30"]').addEventListener('click', () => {
+        initVision30();
     });
 });

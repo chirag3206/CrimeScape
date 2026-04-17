@@ -168,6 +168,16 @@ h1 {
     font-weight: 800;
 }
 
+.subtext {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.4;
+    margin-top: 5px;
+    font-weight: 400;
+    max-width: 90%;
+    display: block;
+}
+
 .stat-card .highlight {
     color: var(--accent-blue);
 }
@@ -471,4 +481,153 @@ select {
     float: left;
     margin-right: 8px;
     opacity: 0.7;
+.spillover-info {
+    margin: 1rem 0;
+    padding: 1rem;
+    background: rgba(59, 130, 246, 0.08);
+    border-radius: 8px;
+    border-left: 4px solid var(--accent-blue);
+}
+
+.spillover-info p {
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+}
+
+.spillover-info b {
+    color: var(--accent-blue);
+}
+
+.subtext i {
+    margin-right: 5px;
+}
+
+/* Vision 2030 Styles */
+#vision30 .hero-card {
+    margin-bottom: 2rem;
+    width: 100%;
+}
+
+.vision-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 2rem;
+    align-items: start;
+    width: 100%;
+}
+
+.vision-grid .card {
+    min-width: 0; /* Prevents overflow from breaking the grid row */
+}
+
+.spillover-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.spillover-val {
+    font-size: 0.85rem;
+    color: var(--accent-blue);
+    font-weight: 800;
+}
+
+.report-table-container {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-top: 1rem;
+    padding-right: 8px;
+}
+
+/* Intelligence Scrollbars */
+.report-table-container::-webkit-scrollbar,
+.spillover-list::-webkit-scrollbar {
+    width: 5px;
+}
+.report-table-container::-webkit-scrollbar-track,
+.spillover-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+.report-table-container::-webkit-scrollbar-thumb,
+.spillover-list::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.1);
+    border-radius: 10px;
+}
+
+#risk-ledger {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#risk-ledger th {
+    text-align: left;
+    padding: 1rem;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--glass-border);
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+#risk-ledger td {
+    padding: 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    font-size: 0.9rem;
+}
+
+.text-critical { color: var(--accent-red); font-weight: 800; }
+.text-high { color: #f59e0b; font-weight: 600; }
+
+.spillover-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+    max-height: 350px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.spillover-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.spillover-item span {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.progress-bar-container {
+    width: 100%;
+    height: 6px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-blue), #6366f1);
+    border-radius: 3px;
+    transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.chart-box {
+    height: 400px;
+    margin-top: 2rem;
+    width: 100%;
+}
+
+.chart-controls select {
+    background: var(--sidebar-bg);
+    color: var(--text-primary);
+    border: 1px solid var(--glass-border);
+    padding: 0.4rem 1rem;
+    border-radius: 8px;
+    outline: none;
+    font-size: 0.85rem;
 }

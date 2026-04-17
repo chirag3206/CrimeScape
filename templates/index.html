@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NCRB Senior Analytics Dashboard</title>
+    <title>Crimescrape | Vision 2030 Deep Intelligence</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body class="dark-theme">
     <div class="app-container">
@@ -16,17 +17,18 @@
         <nav class="sidebar">
             <div class="logo">
                 <i class="fas fa-shield-halved"></i>
-                <span>NYAY<span>ANALYTICS</span></span>
+                <span>CRIME<span>SCRAPE</span></span>
             </div>
             <ul class="nav-links">
                 <li class="active" data-tab="overview"><i class="fas fa-chart-line"></i> Dashboard</li>
                 <li data-tab="ml-gallery"><i class="fas fa-brain"></i> ML Research</li>
                 <li data-tab="regional-map"><i class="fas fa-map-location-dot"></i> Regional Map</li>
                 <li data-tab="comparison-lab"><i class="fas fa-code-compare"></i> Comparison Lab</li>
-                <li data-tab="predictor"><i class="fas fa-bolt"></i> Risk Predictor</li>
+                <li data-tab="predictor"><i class="fas fa-bolt"></i> ML Risk Predictor</li>
+                <li data-tab="vision30"><i class="fas fa-eye"></i> Vision 2030</li>
             </ul>
             <div class="sidebar-footer">
-                <p>NCRB Intelligence v2.0</p>
+                <p>Crimescrape Intelligence v3.0</p>
                 <span>Senior Data Scientist Edition</span>
             </div>
         </nav>
@@ -114,6 +116,10 @@
 
             <!-- Tab: Regional Map -->
             <section id="regional-map" class="tab-content">
+                <div class="section-header">
+                    <h2>Indian National Heatmap</h2>
+                    <p class="subtext">Geospatial intensity audit mapping projected threat density across 36 States and Union Territories for 2026.</p>
+                </div>
                 <div class="map-controls glass">
                     <label>Select Domain View:</label>
                     <select id="map-domain-select">
@@ -122,9 +128,6 @@
                         <option value="Juvenile">Juvenile Justice Interaction</option>
                         <option value="Human Traficking">Human Trafficking Density</option>
                     </select>
-                    <p class="map-definition definition" style="margin: 0; margin-left: auto; text-align: right;">
-                        <strong>Predicted Intensity Index:</strong> Estimated 2026 crime rate per 100k citizens based on statistical growth trends.
-                    </p>
                 </div>
                 <div id="map-container" class="glass">
                     <div id="heatmap"></div>
@@ -133,6 +136,10 @@
 
             <!-- Tab: Comparison Lab -->
             <section id="comparison-lab" class="tab-content">
+                <div class="section-header">
+                    <h2>Comparative Intelligence Lab</h2>
+                    <p class="subtext">Dual-vector benchmarking assessing standardized vulnerability across two selected regions to identify regional variances.</p>
+                </div>
                 <div class="comparison-header glass">
                     <div class="comp-col">
                         <label>State A</label>
@@ -169,7 +176,7 @@
                 <div class="predictor-container glass">
                     <div class="form-section">
                         <h2>Threat Forecasting Center</h2>
-                        <p>Select parameters to generate a 2026 intelligence projection.</p>
+                        <p class="subtext">Multi-model ensemble (Linear, Ridge, Lasso) providing high-precision 2026 intelligence projections calibrated for state-specific domain volatility.</p>
                         
                         <div class="input-group">
                             <label>Target State/UT</label>
@@ -196,6 +203,63 @@
                             <i class="fas fa-radar fa-5x"></i>
                             <p>Enter parameters and initialize analysis</p>
                         </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tab: Vision 2030 -->
+            <section id="vision30" class="tab-content">
+                <!-- HERO: Long-Range Projection -->
+                <div class="card glass forecast-card hero-card">
+                    <div class="card-header">
+                        <div class="header-main">
+                            <h3>Vision 2030: Long-Range Intelligence Projection</h3>
+                            <p class="subtext">Temporal intelligence engine (LSTM) analyzing 500+ historical vectors to project standardized crime intensity through the 2030 horizon.</p>
+                        </div>
+                        <div class="chart-controls">
+                            <select id="v30-state-select">
+                                <option>Select State</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="chart-box">
+                        <canvas id="forecastChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- SECONDARY: Risk and Spatial Grid -->
+                <div class="vision-grid">
+                    <div class="card glass risk-report-card">
+                        <div class="card-header">
+                            <div class="header-main">
+                                <h3>Neural Risk Audit (2030)</h3>
+                                <p class="subtext">Dynamic classification (ANN) fusing absolute intensity with trend momentum (Magnitude + Velocity).</p>
+                            </div>
+                            <span class="tag">AI Classification</span>
+                        </div>
+                        <div class="report-table-container">
+                            <table id="risk-ledger">
+                                <thead>
+                                    <tr>
+                                        <th>State/UT</th>
+                                        <th>Risk Grade</th>
+                                        <th>Score</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="card glass spatial-card">
+                        <div class="card-header">
+                            <div class="header-main">
+                                <h3>Regional Spillover Index</h3>
+                                <p class="subtext">Spatial Intelligence mapping (GNN) to measure how trend influence propagates across state borders.</p>
+                            </div>
+                            <span class="tag">GNN Mapping</span>
+                        </div>
+                        <div class="spillover-list" id="spillover-container"></div>
                     </div>
                 </div>
             </section>
