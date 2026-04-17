@@ -23,7 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateDescription(tab) {
         const desc = document.getElementById('page-desc');
         if (tab === 'overview') desc.innerText = "Comprehensive crime intelligence and statistical modeling (2019-2023)";
-        if (tab === 'ml-gallery') desc.innerText = "Visualization of state archetypes and dominant crime drivers";
         if (tab === 'predictor') desc.innerText = "Advanced ML projection center for future risk assessment";
         if (tab === 'vision30') desc.innerText = "Vision 2030: Long-range Deep Learning forecasts and regional spillover analysis";
     }
@@ -101,21 +100,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 4. Gallery Filter
-    window.filterGallery = (category) => {
-        const buttons = document.querySelectorAll('.gallery-controls button');
-        buttons.forEach(b => b.classList.remove('active'));
-        event.target.classList.add('active');
-
-        const items = document.querySelectorAll('.gallery-item');
-        items.forEach(item => {
-            if (item.classList.contains(category)) {
-                item.classList.remove('hidden');
-            } else {
-                item.classList.add('hidden');
-            }
-        });
-    };
 
     // 5. REGIONAL MAP (LEADLET)
     let map, geojson;
@@ -284,6 +268,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 7. VISION 2030 INTELLIGENCE
     let forecastChart = null;
+    let currentForecastData = null; // High-fidelity Intelligence Cache
 
     function initVision30() {
         // A. Load Risk Ledger
@@ -340,27 +325,51 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Auto-load Delhi as default
                 select.value = "Delhi (UT)";
-                fetch(`/api/dl/forecast/Delhi (UT)`)
-                    .then(res => res.json())
-                    .then(data => updateForecastChart(data));
+                fetchForecast("Delhi (UT)");
+            });
+    }
+
+    function fetchForecast(state) {
+        fetch(`/api/dl/forecast/${state}`)
+            .then(res => res.json())
+            .then(data => {
+                currentForecastData = data;
+                const domain = document.getElementById('v30-domain-select').value;
+                updateForecastChart(data, domain);
             });
     }
 
     document.getElementById('v30-state-select').addEventListener('change', (e) => {
-        const state = e.target.value;
-        if (!state) return;
-
-        fetch(`/api/dl/forecast/${state}`)
-            .then(res => res.json())
-            .then(data => {
-                updateForecastChart(data);
-            });
+        if (e.target.value) fetchForecast(e.target.value);
     });
 
-    function updateForecastChart(data) {
+    document.getElementById('v30-domain-select').addEventListener('change', (e) => {
+        if (currentForecastData) updateForecastChart(currentForecastData, e.target.value);
+    });
+
+    function updateForecastChart(data, domain = 'intensity') {
         const ctx = document.getElementById('forecastChart').getContext('2d');
         const labels = data.trend.map(d => d.year);
-        const values = data.trend.map(d => d.intensity);
+        
+        let stateValues, stateLabel, nationalValues, nationalLabel;
+        const domainLabels = {
+            'women': 'Women Crime',
+            'children': 'Children Welfare',
+            'juvenile': 'Juvenile Justice',
+            'trafficking': 'Trafficking Density'
+        };
+
+        if (domain === 'intensity') {
+            stateValues = data.trend.map(d => d.intensity);
+            stateLabel = `${data.state} Intensity`;
+            nationalValues = data.national.map(d => d.intensity);
+            nationalLabel = `National Average Baseline`;
+        } else {
+            stateValues = data.trend.map(d => d.breakdown[domain]);
+            stateLabel = `${domainLabels[domain] || domain}: ${data.state}`;
+            nationalValues = data.national.map(d => d.breakdown[domain]);
+            nationalLabel = `National Avg: ${domainLabels[domain] || domain}`;
+        }
 
         if (forecastChart) {
             forecastChart.destroy();
@@ -370,17 +379,29 @@ document.addEventListener('DOMContentLoaded', () => {
             type: 'line',
             data: {
                 labels: labels,
-                datasets: [{
-                    label: `Intensity Index: ${data.state}`,
-                    data: values,
-                    borderColor: '#3b82f6',
-                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                    borderWidth: 3,
-                    tension: 0.4,
-                    fill: true,
-                    pointRadius: 5,
-                    pointBackgroundColor: '#3b82f6'
-                }]
+                datasets: [
+                    {
+                        label: stateLabel,
+                        data: stateValues,
+                        borderColor: '#3b82f6',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        borderWidth: 3,
+                        tension: 0.4,
+                        fill: true,
+                        pointRadius: 5,
+                        pointBackgroundColor: '#3b82f6'
+                    },
+                    {
+                        label: nationalLabel,
+                        data: nationalValues,
+                        borderColor: '#94a3b8',
+                        borderDash: [5, 5],
+                        borderWidth: 2,
+                        tension: 0.4,
+                        fill: false,
+                        pointRadius: 0
+                    }
+                ]
             },
             options: {
                 responsive: true,
@@ -397,7 +418,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 },
                 plugins: {
-                    legend: { display: false }
+                    legend: {
+                        display: true,
+                        labels: { color: '#94a3b8', font: { family: 'Outfit', size: 12 } }
+                    }
                 }
             }
         });

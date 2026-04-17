@@ -21,7 +21,6 @@
             </div>
             <ul class="nav-links">
                 <li class="active" data-tab="overview"><i class="fas fa-chart-line"></i> Dashboard</li>
-                <li data-tab="ml-gallery"><i class="fas fa-brain"></i> ML Research</li>
                 <li data-tab="regional-map"><i class="fas fa-map-location-dot"></i> Regional Map</li>
                 <li data-tab="comparison-lab"><i class="fas fa-code-compare"></i> Comparison Lab</li>
                 <li data-tab="predictor"><i class="fas fa-bolt"></i> ML Risk Predictor</li>
@@ -86,33 +85,6 @@
                 </div>
             </section>
 
-            <!-- Tab: ML Gallery -->
-            <section id="ml-gallery" class="tab-content">
-                <div class="gallery-controls">
-                    <button class="active" onclick="filterGallery('clustering')">Archetypes</button>
-                    <button onclick="filterGallery('importance')">Drivers</button>
-                </div>
-                <div class="image-gallery" id="gallery-container">
-                    <!-- Clustering Plots -->
-                    <div class="gallery-item clustering">
-                        <img src="/plots/clustering/dbscan_women.png" alt="Women Cluster">
-                        <p>Women Crime Clusters</p>
-                    </div>
-                    <div class="gallery-item clustering">
-                        <img src="/plots/clustering/dbscan_children.png" alt="Children Cluster">
-                        <p>Children Crime Clusters</p>
-                    </div>
-                    <!-- Importance Plots -->
-                    <div class="gallery-item importance hidden">
-                        <img src="/plots/importance/importance_women.png" alt="Importance Women">
-                        <p>Women Crime Drivers</p>
-                    </div>
-                    <div class="gallery-item importance hidden">
-                        <img src="/plots/importance/importance_children.png" alt="Importance Children">
-                        <p>Children Crime Drivers</p>
-                    </div>
-                </div>
-            </section>
 
             <!-- Tab: Regional Map -->
             <section id="regional-map" class="tab-content">
@@ -217,7 +189,14 @@
                             <p class="subtext">Temporal intelligence engine (LSTM) analyzing 500+ historical vectors to project standardized crime intensity through the 2030 horizon.</p>
                         </div>
                         <div class="chart-controls">
-                            <select id="v30-state-select">
+                            <select id="v30-domain-select" class="glass-select">
+                                <option value="intensity">Combined Intensity Index</option>
+                                <option value="women">Women Crime Protection</option>
+                                <option value="children">Children Welfare Audit</option>
+                                <option value="juvenile">Juvenile Justice Interaction</option>
+                                <option value="trafficking">Human Trafficking Density</option>
+                            </select>
+                            <select id="v30-state-select" class="glass-select">
                                 <option>Select State</option>
                             </select>
                         </div>

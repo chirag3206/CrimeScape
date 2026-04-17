@@ -200,35 +200,50 @@ def dl_state_forecast(state):
              print(f"⚠️  WARNING: No Vision 2030 data found for state: {state}")
              return jsonify({"state": state, "trend": [], "error": "No trend data found"})
 
+        # 1. State-Specific Trajectory
         state_df = state_df.sort_values('Year')
-        
-        # Comprehensive Intelligence Suite: Women, Children, Juvenile, Trafficking
-        rate_cols_ext = {
-            "rate": ["Children_Total_All_R", "Women_Total_Crime_R"],
-            "count": ["Juvenile_Total_Cognizable", "Human Traficking_GrandTotal"]
-        }
-        
         trend_data = []
         for _, row in state_df.iterrows():
-            # 1. Sum the high-fidelity standardized rates
-            base_rate = row[[c for c in rate_cols_ext["rate"] if c in df.columns]].fillna(0).sum()
-            
-            # 2. Normalize raw counts to approximate 'per 100k' impact 
-            # (Delhi Factor: ~2000 cases typically equates to ~30-40 per 100k)
-            raw_counts = row[[c for c in rate_cols_ext["count"] if c in df.columns]].fillna(0).sum()
-            count_contribution = raw_counts / 55.0 # Normalizing factor
-            
-            total_score = base_rate + count_contribution
+            children_score = float(row.get("Children_Total_All_R", 0))
+            women_score = float(row.get("Women_Total_Crime_R", 0))
+            juvenile_score = float(row.get("Juvenile_Total_Cognizable", 0)) / 55.0
+            trafficking_score = float(row.get("Human Traficking_GrandTotal", 0)) / 55.0
+            total_score = children_score + women_score + juvenile_score + trafficking_score
             
             trend_data.append({
                 "year": int(row['Year']),
-                "intensity": round(float(total_score), 2)
+                "intensity": round(total_score, 2),
+                "breakdown": {
+                    "women": round(women_score, 2), "children": round(children_score, 2),
+                    "juvenile": round(juvenile_score, 2), "trafficking": round(trafficking_score, 2)
+                }
+            })
+
+        # 2. National Baseline (Mean of all 36 States/UTs)
+        national_trend = []
+        # Filter for only relevant years 2024-2030 to keep it efficient
+        national_df = df[df['Year'] >= 2024].groupby('Year').mean(numeric_only=True).reset_index()
+        for _, row in national_df.iterrows():
+            n_children = float(row.get("Children_Total_All_R", 0))
+            n_women = float(row.get("Women_Total_Crime_R", 0))
+            n_juv = float(row.get("Juvenile_Total_Cognizable", 0)) / 55.0
+            n_traf = float(row.get("Human Traficking_GrandTotal", 0)) / 55.0
+            n_total = n_children + n_women + n_juv + n_traf
+
+            national_trend.append({
+                "year": int(row['Year']),
+                "intensity": round(n_total, 2),
+                "breakdown": {
+                    "women": round(n_women, 2), "children": round(n_children, 2),
+                    "juvenile": round(n_juv, 2), "trafficking": round(n_traf, 2)
+                }
             })
         
-        print(f"✅ Served 2030 trend for {state} ({len(trend_data)} points)")
+        print(f"✅ Served dual-stream 2030 trend for {state}")
         return jsonify({
             "state": state,
-            "trend": trend_data
+            "trend": trend_data,
+            "national": national_trend
         })
     except Exception as e:
         print(f"❌ CRITICAL BACKEND ERROR: {str(e)}")
