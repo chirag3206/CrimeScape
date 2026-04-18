@@ -1,7 +1,7 @@
 ==================================================================================================
            ULTIMATE PROJECT RETROSPECTIVE: NCRB MULTI-DOMAIN CRIME INTELLIGENCE SYSTEM
 ==================================================================================================
-Project Name: Advanced Crime Analytics & Multi-Domain ML Modeling
+Project Name: CrimeScrape (Advanced Multi-Domain Analytics)
 Timeline: April 2026 Build Phase
 Environment: Windows / Python 3.x / Flask Web Architecture
 Scope: Comprehensive National Review (36 States/UTs, 5 Years, 265 Crime Sub-Categories)
@@ -65,7 +65,7 @@ An industry-grade ML suite was developed to provide both hindsight (importance) 
     * Purpose: To verify that our complex models were significantly outperforming simple linear trends.
 
 --------------------------------------------------------------------------------------------------
-PHASE 5: THE "NYAYANALYTICS" PREMIUM DASHBOARD
+PHASE 5: THE "CRIMESCRAPE" PREMIUM DASHBOARD
 --------------------------------------------------------------------------------------------------
 The final phase was the development of a professional-grade web interface.
 - Backend (Flask): Serves the 16+ .joblib models and a custom API for data delivery.
@@ -75,6 +75,15 @@ The final phase was the development of a professional-grade web interface.
     * The Comparison Lab: A side-by-side benchmarking engine for cross-state behavioral comparison.
     * The Risk Predictor: A direct user-interface to the machine learning models.
 - Interpretability: Added concise subtitles and definitions to every metric to make the dashboard accessible to non-technical officials.
+
+--------------------------------------------------------------------------------------------------
+PHASE 6: EXPLAINABLE INTELLIGENCE (XAI) & POLICY DIRECTIVES
+--------------------------------------------------------------------------------------------------
+To move beyond "Black-Box" AI, we integrated a dedicated Explainable AI (XAI) engine.
+- The CrimeExplainer: Developed a SHAP-based interpretability layer that "audits" every prediction made by our ensemble models.
+- Executive Intelligence Briefings: The system now generates natural-language reports explaining WHY a state is flagged as high-risk, identifying specific "Drivers" (positive impact) and "Stability Buffers" (negative impact).
+- Strategic Action Plans: Mapped crime categories to actionable law enforcement directives (e.g., deploying specialized anti-trafficking units or establishing Fast-Track Courts).
+- Outcome: Transformed the dashboard from a simple visualization tool into a proactive, transparent intelligence hub for policy-makers.
 
 --------------------------------------------------------------------------------------------------
 FINAL DOCUMENTATION & PROJECT REPOSITORY

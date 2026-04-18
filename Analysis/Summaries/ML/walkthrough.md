@@ -1,6 +1,6 @@
 # Walkthrough: Final ML Pipeline Documentation
 
-I have created a comprehensive, professional documentation suite for your **Project CrimeScape**. This documentation is designed to tie together your data extraction, EDA, ML models, and dashboard into a single cohesive narrative suitable for a viva, presentation, or final project report.
+I have created a comprehensive, professional documentation suite for your **Project CrimeScrape**.
 
 ## 📄 Key Documentation Created
 

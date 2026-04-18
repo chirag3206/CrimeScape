@@ -1,7 +1,7 @@
 ==================================================================================================
         MASTER PROJECT MONOGRAPH: END-TO-END NCRB CRIME ANALYTICS & INTELLIGENCE ARCHITECTURE
 ==================================================================================================
-Project Identity: NyayAnalytics Advanced Crime Intelligence Suite
+Project Identity: CrimeScrape Advanced Crime Intelligence Suite
 Build Version: 2.0.0 (Stable Release)
 Author: Antigravity AI (Lead Architect)
 Date of Final Assessment: April 15, 2026
@@ -10,7 +10,7 @@ Documentation Depth: 500+ Lines (Exhaustive Analysis)
 --------------------------------------------------------------------------------------------------
 1. PROJECT ABSTRACT & VISION
 --------------------------------------------------------------------------------------------------
-The NyayAnalytics project was conceived as a multi-stage data engineering and machine learning 
+The CrimeScrape project was conceived as a multi-stage data engineering and machine learning 
 endeavor to bridge the gap between raw, unstructured police records (NCRB) and actionable, 
 geospatial law enforcement intelligence. The primary objective was to move beyond the static 
 reporting provided by traditional government portals and develop a dynamic system capable of:
@@ -215,7 +215,7 @@ We maintained strict statistical standards across all four domains.
 --------------------------------------------------------------------------------------------------
 10. EXECUTIVE CONCLUSION & FUTURE ROADMAP
 --------------------------------------------------------------------------------------------------
-The NyayAnalytics project has successfully transformed five years of disparate NCRB 
+The CrimeScrape project has successfully transformed five years of disparate NCRB 
 PDF reports into a cohesive, predictive intelligence suite. 
 
 Key Achievements:
@@ -239,6 +239,6 @@ Future Scoping (v3.0):
 - [Log 23:25]: Regional Map GeoJSON Normalization Finalized.
 
 ==================================================================================================
-        THIS CONCLUDES THE MASTER PRODUCT DOCUMENTATION FOR NYAYANALYTICS v2.0
+        THIS CONCLUDES THE MASTER PRODUCT DOCUMENTATION FOR CRIMESCRAPE v2.0
 ==================================================================================================
 EOF

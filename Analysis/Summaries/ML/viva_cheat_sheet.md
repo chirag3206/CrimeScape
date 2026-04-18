@@ -1,4 +1,4 @@
-# Viva Cheat Sheet: Project CrimeScape
+# Viva Cheat Sheet: Project CrimeScrape
 
 ## Top 5 Quick-Fire Questions
 
@@ -47,4 +47,4 @@
 *   **Coefficient of Variation (CV)**: Used in EDA to measure "Volatility"—how much crime fluctuates year-to-year.
 
 ---
-*Prepared for Project CrimeScape Viva/Presentation*
+*Prepared for Project CrimeScrape Viva/Presentation*

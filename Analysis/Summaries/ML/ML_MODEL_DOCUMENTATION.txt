@@ -1,8 +1,8 @@
 ================================================================================
           NCRB CRIME ANALYTICS: MULTI-DOMAIN MACHINE LEARNING DOCUMENTATION
 ================================================================================
-Project: Advanced Statistical Modeling of NCRB Crime Data (2019-2023)
-Author: NyayAnalytics Intelligence Team
+Project: CrimeScrape - Multi-Domain Machine Learning Modeling
+Author: CrimeScrape Intelligence Team
 Date: April 15, 2026
 
 1. DATA PRE-PROCESSING & NORMALIZATION
@@ -59,6 +59,14 @@ Before any modeling was performed, the raw NCRB incident counts were transformed
 - Goal: To determine if simple linear relationships explain the data better than complex ones.
 - Evaluation Metrics: Mean Squared Error (MSE) & R-Squared.
 - Finding: Linear and Ridge models showed very high R2 (0.90+), confirming that crime growth in India follows established linear trajectories.
+
+[ENGINE X: CrimeExplainer (SHAP Intelligence Hub)]
+- Purpose: Local Interpretability & Actionable Intelligence.
+- Technology: SHAP (SHAPley Additive exPlanations).
+- Logic: Automatically identifies the top 10 crime categories influencing a state's risk profile.
+- Outputs:
+    * Intelligence Briefings: Professional narratives explaining risk drivers.
+    * Strategic Directives: Mapped interventions (e.g., 'Cruelty' -> Monitoring, 'Rape' -> Fast-Track Courts).
 
 3. PREDICTION TARGETS (2026)
 ----------------------------

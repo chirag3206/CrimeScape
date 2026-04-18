@@ -631,4 +631,86 @@ select {
     outline: none;
     font-size: 0.85rem;
 }
+
+/* XAI Explanation Styles */
+.xai-section {
+    margin-top: 2rem;
+    padding: 2.5rem;
+    border-top: 1px solid var(--glass-border);
+    animation: slideUp 0.6s ease-out;
+}
+
+.briefing-content {
+    line-height: 1.8;
+    color: #cbd5e1;
+    font-size: 1rem;
+    margin-top: 1.5rem;
+}
+
+.briefing-content h3, .briefing-content h4 {
+    color: var(--accent-blue);
+    margin: 1.5rem 0 0.5rem 0;
+}
+
+.briefing-content ul {
+    list-style: none;
+    padding: 0;
+}
+
+.briefing-content li {
+    background: rgba(255,255,255,0.03);
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    border-left: 3px solid var(--accent-blue);
+}
+
+.directive-item {
+    background: rgba(59, 130, 246, 0.08) !important;
+    border-left: 3px solid var(--accent-blue) !important;
+    border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.directive-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--accent-blue) !important;
+    font-weight: 800 !important;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    margin-bottom: 0.3rem;
+}
+
+.briefing-content b {
+    color: var(--text-primary);
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Anomaly Glow Effects */
+.status-badge.anomaly-alert {
+    background: rgba(239, 68, 68, 0.15);
+    color: var(--accent-red);
+    border: 1px solid var(--accent-red);
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.3);
+    animation: pulseRed 2s infinite;
+}
+
+@keyframes pulseRed {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+.anomaly-item {
+    background: rgba(239, 68, 68, 0.05);
+    border-left: 3px solid var(--accent-red);
+    padding: 0.8rem;
+    margin-bottom: 0.5rem;
+    border-radius: 4px;
+}
 }

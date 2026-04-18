@@ -3,6 +3,7 @@ import pandas as pd
 import joblib
 import os
 import json
+from ai_utils import explainer_engine, AnomalyDetector
 
 app = Flask(__name__)
 
@@ -22,6 +23,9 @@ SPATIAL_FILE = os.path.join(BASE_DIR, "Analysis", "results", "spatial", "vision_
 @app.route('/plots/<path:filename>')
 def serve_plot(filename):
     return send_from_directory(PLOTS_DIR, filename)
+
+# Initialize AI Audit
+anomaly_engine = AnomalyDetector(DATA_FILE)
 
 @app.route('/')
 def index():
@@ -86,12 +90,18 @@ def predict():
         risk_grade_num = clf_model.predict(X_input)[0]
         risk_grade = "HIGH RISK" if risk_grade_num == 1 else "STABLE/LOW RISK"
 
+        # 3. XAI: Get Explanation (Why this score?)
+        explanation = explainer_engine.get_explanation(reg_model, X_input, X_input.columns.tolist())
+        narrative = explainer_engine.generate_narrative(explanation, state, domain)
+
         return jsonify({
             "state": state,
             "domain": domain,
             "intensity_score": round(float(predicted_intensity), 2),
             "risk_grade": risk_grade,
-            "confidence": "High (Model R-squared verified)"
+            "confidence": "High (Model R-squared verified)",
+            "explanation": explanation,
+            "narrative": narrative
         })
     except Exception as e:
         return jsonify({"error": str(e)}), 500
@@ -147,6 +157,14 @@ def compare():
             "state2": {**get_pred(state2), "name": state2},
             "domain": domain
         })
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/api/ai/anomalies')
+def get_ai_anomalies():
+    try:
+        anomalies = anomaly_engine.get_anomalies()
+        return jsonify(anomalies)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
@@ -251,7 +269,7 @@ def dl_state_forecast(state):
 
 if __name__ == '__main__':
     print("\n" + "="*50)
-    print("      CRIMESCAPE INTELLIGENCE BACKEND STARTING")
+    print("      CRIMESCRAPE INTELLIGENCE BACKEND STARTING")
     print("      Vision 2030 Neural Core: Synchronized")
     print("      Serving at http://127.0.0.1:5000")
     print("="*50 + "\n")

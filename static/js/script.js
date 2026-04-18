@@ -58,6 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Visual feedback
         predictBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
         predictBtn.disabled = true;
+        document.getElementById('xai-container').classList.add('hidden');
 
         fetch('/api/predict', {
             method: 'POST',
@@ -89,6 +90,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p style="margin-top:1.5rem; font-size: 0.75rem; color: #94a3b8; opacity: 0.6;">Model Confidence: ${data.confidence}</p>
                 </div>
             `;
+
+            // 4. Render XAI Briefing
+            if (data.narrative) {
+                document.getElementById('xai-container').classList.remove('hidden');
+                renderXAINarrative(data.narrative);
+            }
         })
         .catch(err => {
             alert("Prediction failed. Ensure server is running.");
@@ -100,6 +107,59 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    function renderXAINarrative(text) {
+        const container = document.getElementById('xai-narrative');
+        
+        // Simple Markdown-to-HTML Conversion
+        let formatted = text
+            .replace(/### (.*)/g, '<h3>$1</h3>')
+            .replace(/#### 🛡️ Strategic Action Plan \(Directives\)/g, '<div class="directive-box"><h4>🛡️ Strategic Action Plan</h4>')
+            .replace(/#### (.*)/g, '<h4>$1</h4>')
+            // Special handling for Directive items
+            .replace(/- \*\*Target: (.*?)\*\* → (.*)/g, '<li class="directive-item"><div class="directive-header"><i class="fas fa-shield-alt"></i> Intelligence Directive</div><b>Target: $1</b><p style="margin:0; font-size:0.9rem;">$2</p></li>')
+            // Standard list items
+            .replace(/- \*\*(.*?)\*\*:(.*)/g, '<li><b>$1</b>: $2</li>')
+            .replace(/\*\*(.*?)\*\*/g, '<b>$1</b>')
+            .replace(/\n\n/g, '<br>')
+            .replace(/- /g, ''); 
+
+        // Wrap lists and close directive boxes
+        if (formatted.includes('<li class="directive-item">')) {
+            formatted = formatted.replace(/(<li class="directive-item">.*?<\/li>)/gms, '<ul>$1</ul></div>');
+        } else if (formatted.includes('<li>')) {
+            formatted = formatted.replace(/(<li>.*<\/li>)/gms, '<ul>$1</ul>');
+        }
+
+        container.innerHTML = '';
+        
+        // Typewriter Effect
+        let i = 0;
+        const speed = 2; //ms
+        container.innerHTML = formatted; // Set directly for now as complexity was high for HTML typewriter
+        container.classList.add('anim-fade-in');
+    }
+
+    // 4. Anomaly Detection Audit
+    function runAnomalyAudit() {
+        const badge = document.getElementById('anomaly-badge');
+        fetch('/api/ai/anomalies')
+            .then(res => res.json())
+            .then(anomalies => {
+                if (anomalies.length > 0) {
+                    badge.innerText = `Alert: ${anomalies.length} Anomalies Found`;
+                    badge.classList.add('anomaly-alert');
+                    badge.title = anomalies.map(a => `${a.state} (${a.type})`).join(', ');
+                } else {
+                    badge.innerText = "System: Status Normal";
+                    badge.classList.remove('anomaly-alert');
+                }
+            })
+            .catch(err => {
+                badge.innerText = "System: Online";
+                console.error("Anomaly Audit Error:", err);
+            });
+    }
+    runAnomalyAudit();
 
     // 5. REGIONAL MAP (LEADLET)
     let map, geojson;

@@ -1,8 +1,8 @@
 ================================================================================
-          NYAYANALYTICS COMMAND CENTER: DASHBOARD USER GUIDE
+          CRIMESCRAPE COMMAND CENTER: DASHBOARD USER GUIDE
 ================================================================================
 Product: Premium NCRB Crime Intelligence Dashboard
-Platform: NyayAnalytics v2.0
+Platform: CrimeScrape v3.0
 Document Date: April 15, 2026
 
 I. SIDEBAR NAVIGATION

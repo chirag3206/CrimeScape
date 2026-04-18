@@ -52,7 +52,7 @@ This ensures that all trajectories—whether regional or national average baseli
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/chirag3206/CrimeScape.git
+   git clone https://github.com/chirag3206/CrimeScrape.git
    ```
 2. **Setup Virtual Environment**:
    ```bash

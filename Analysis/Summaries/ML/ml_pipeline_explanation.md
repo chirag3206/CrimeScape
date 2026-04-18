@@ -1,7 +1,7 @@
-# Project CrimeScape: Machine Learning Pipeline Explanation
+# Project CrimeScrape: Machine Learning Pipeline Explanation
 
 ## 1. Executive Summary
-The **CrimeScape** ML pipeline is a multi-stage analytical engine designed to transform raw NCRB PDF data into actionable law enforcement intelligence. The system uses a hierarchy of models ranging from baseline statistical estimators to advanced gradient-boosted ensembles and unsupervised clustering algorithms.
+The **CrimeScrape** ML pipeline is a multi-stage analytical engine designed to transform raw NCRB PDF data into actionable law enforcement intelligence. The system uses a hierarchy of models ranging from baseline statistical estimators to advanced gradient-boosted ensembles and unsupervised clustering algorithms.
 
 ---
 
@@ -67,4 +67,4 @@ Without normalization, Uttar Pradesh would always appear as the "most dangerous"
 *   **Early Warning System**: Use the **Lasso Logistic Risk Grade** to flag states that are crossing the threshold from "Stable" to "High Risk."
 
 ---
-*Created for Project CrimeScape Final Documentation*
+*Created for Project CrimeScrape Final Documentation*
