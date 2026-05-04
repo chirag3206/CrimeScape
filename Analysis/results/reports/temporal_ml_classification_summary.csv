@@ -1,0 +1,9 @@
+Domain,Classifier,Accuracy_%,Precision,Recall,F1,AUC_ROC,CV_Acc_mean,CV_Acc_std
+Women,Logistic Regression,100.0,1.0,1.0,1.0,1.0,0.9143,0.1143
+Women,Lasso Logistic,100.0,1.0,1.0,1.0,1.0,0.9143,0.07
+Children,Logistic Regression,100.0,1.0,1.0,1.0,1.0,0.9464,0.0659
+Children,Lasso Logistic,100.0,1.0,1.0,1.0,1.0,0.7821,0.0961
+Juvenile,Logistic Regression,100.0,1.0,1.0,1.0,1.0,0.8929,0.0958
+Juvenile,Lasso Logistic,97.22,1.0,0.9474,0.973,0.9814,0.8929,0.0958
+Human Traficking,Logistic Regression,97.22,0.9375,1.0,0.9677,1.0,0.975,0.05
+Human Traficking,Lasso Logistic,100.0,1.0,1.0,1.0,1.0,0.8643,0.1204

@@ -1,0 +1,27 @@
+=== ML CONFIRMATION REPORT (TARGET: 2022) ===
+Training: 2019-2021 | Validation: 2022 Actuals
+============================================
+
+
+>> Validating Domain: Women
+   [Regressor] R2: 0.5520 | MAPE: 33.91%
+   [Classifier] Acc: 0.82 | F1: 0.8125 | AUC: 0.9444
+
+>> Validating Domain: Children
+   [Regressor] R2: 0.9609 | MAPE: 14.95%
+   [Classifier] Acc: 0.85 | F1: 0.8571 | AUC: 0.9519
+
+>> Validating Domain: Juvenile
+   [Regressor] R2: 0.9939 | MAPE: 1059585.09%
+   [Classifier] Acc: 0.97 | F1: 0.9677 | AUC: 1.0000
+
+>> Validating Domain: Human Traficking
+   [Regressor] R2: 0.6991 | MAPE: 84667.30%
+   [Classifier] Acc: 0.91 | F1: 0.8571 | AUC: 0.9306
+
+=== FINAL ML CONFIRMATION TABLE ===
+          Domain       R2         MAPE  Accuracy      AUC
+           Women 0.552014 3.391466e+01  0.818182 0.944444
+        Children 0.960934 1.495023e+01  0.848485 0.951852
+        Juvenile 0.993903 1.059585e+06  0.969697 1.000000
+Human Traficking 0.699105 8.466730e+04  0.909091 0.930556

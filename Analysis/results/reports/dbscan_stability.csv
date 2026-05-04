@@ -1,0 +1,6 @@
+Metric,Value
+Clusters_Train,1
+Clusters_Test,0
+Silhouette_Train,N/A
+Silhouette_Test,N/A
+Jaccard_Similarity,0.0

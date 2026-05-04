@@ -1,0 +1,21 @@
+Domain,Model,R2,MAE,MAPE_%,Accuracy_%,Direction_Acc_%,CV_R2_mean,CV_R2_std
+Women,Linear Regression,1.0,102.5391,0.24,99.76,100.0,1.0,0.0
+Women,Ridge Regression,1.0,102.4246,0.24,99.76,100.0,1.0,0.0
+Women,Lasso Regression,0.8945,24847.8136,544.67,0.0,52.8,0.5746,0.3029
+Women,Random Forest,0.9296,13863.2125,60.39,39.61,66.7,0.8865,0.0856
+Women,XGBoost,0.9724,11348.4341,23.88,76.12,58.3,0.7416,0.1296
+Children,Linear Regression,1.0,76.8534,0.25,99.75,100.0,1.0,0.0
+Children,Ridge Regression,0.9999,78.5002,0.24,99.76,97.2,1.0,0.0
+Children,Lasso Regression,0.8459,10618.7914,292.95,0.0,77.8,0.6527,0.3367
+Children,Random Forest,0.9237,6382.1685,41.13,58.87,61.1,0.9084,0.0602
+Children,XGBoost,0.9507,6082.5894,22.17,77.83,61.1,0.5059,0.2061
+Juvenile,Linear Regression,0.9999,77.5807,0.84,99.16,100.0,0.9998,0.0004
+Juvenile,Ridge Regression,0.9999,78.3385,0.84,99.16,100.0,0.9995,0.0009
+Juvenile,Lasso Regression,-20.9002,45409.2281,435.77,0.0,44.4,0.2662,0.4084
+Juvenile,Random Forest,0.9247,2440.2151,22.78,77.22,75.0,0.8461,0.0993
+Juvenile,XGBoost,0.9725,1811.2077,18.65,81.35,77.8,0.8908,0.0804
+Human Traficking,Linear Regression,1.0,0.0142,0.0,100.0,100.0,1.0,0.0
+Human Traficking,Ridge Regression,1.0,0.3286,0.2,99.8,100.0,1.0,0.0
+Human Traficking,Lasso Regression,0.9981,65.2244,24.21,75.79,97.2,0.7058,0.426
+Human Traficking,Random Forest,0.8583,384.5111,15.54,84.46,91.7,0.8298,0.2653
+Human Traficking,XGBoost,0.9025,440.7743,41.41,58.59,88.9,0.7003,0.1618

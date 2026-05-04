@@ -1,0 +1,16 @@
+=== ROLLING NATIONAL DL AUDIT (TARGET: 2023) ===
+Method: National Aggregation | Rolling Reconstruction Audit
+Training Range: 2019-2023 | Audit Window: 22-23
+==============================================
+
+Initializing Rolling National DL Confirmation...
+   - Aggregating all 36 states into National Totals...
+   - Learning National Crime Momentum...
+   - Executing Rolling Audit (Re-predicting 2022 and 2023)...
+
+[NATIONAL ACCURACY RESULTS]
+Actual 2023 India Total: 5540480
+Predicted 2023 India Total: 5535198
+National Rolling Accuracy: 99.90%
+
+Audit Complete. National Plot saved to DL_Validation/plots/.

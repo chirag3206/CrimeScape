@@ -318,6 +318,11 @@ select {
     outline: none;
 }
 
+select option {
+    background-color: var(--sidebar-bg);
+    color: var(--text-primary);
+}
+
 .primary-btn {
     width: 100%;
     background: linear-gradient(135deg, var(--accent-blue), #2563eb);

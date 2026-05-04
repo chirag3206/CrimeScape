@@ -4,7 +4,6 @@ import torch
 import torch.nn as nn
 from sklearn.preprocessing import MinMaxScaler
 import os
-import matplotlib.pyplot as plt
 
 # Paths
 DATA_PATH = r"d:\College\Projects\PRJ-3\Crimes\Analysis\results\tables\DL\lstm_temporal_data.csv"
@@ -12,10 +11,10 @@ OUTPUT_DIR = r"d:\College\Projects\PRJ-3\Crimes\Analysis\results\forecasts"
 if not os.path.exists(OUTPUT_DIR):
     os.makedirs(OUTPUT_DIR)
 
-# --- LSTM Architecture ---
-class CrimeLSTM(nn.Module):
+# --- National LSTM Architecture ---
+class NationalCrimeLSTM(nn.Module):
     def __init__(self, input_size, hidden_size, num_layers, output_size):
-        super(CrimeLSTM, self).__init__()
+        super(NationalCrimeLSTM, self).__init__()
         self.hidden_size = hidden_size
         self.num_layers = num_layers
         self.lstm = nn.LSTM(input_size, hidden_size, num_layers, batch_first=True)
@@ -28,85 +27,78 @@ class CrimeLSTM(nn.Module):
         out = self.fc(out[:, -1, :])
         return out
 
-def run_vision_2030():
-    print("🧠 Initializing Reality-2030 LSTM Forecaster...")
+def run_national_vision_2030():
+    print("Initializing Rolling National Vision-2030 LSTM...")
     
-    # 1. Load Data
-    df = pd.read_csv(DATA_PATH)
-    states = df['State'].unique()
-    features = [c for c in df.columns if c not in ['State', 'Year']]
+    # 1. Load and Aggregate Data
+    df_raw = pd.read_csv(DATA_PATH)
+    features = [c for c in df_raw.columns if c not in ['State', 'Year']]
+    
+    print("   - Aggregating India-Total Crime Data (2019-2023)...")
+    df_national = df_raw.groupby('Year')[features].sum().reset_index().sort_values('Year')
     
     # 2. Scaling
     scaler = MinMaxScaler()
-    df_scaled = df.copy()
-    df_scaled[features] = scaler.fit_transform(df[features])
+    data_scaled = scaler.fit_transform(df_national[features].values)
     
-    # 3. Parameters
-    sequence_length = 3  # We use 3 years to predict the 4th
-    hidden_size = 64
-    num_layers = 2
-    learning_rate = 0.001
-    num_epochs = 200
+    # 3. Model Parameters
+    seq_len = 2 # Best for short historical window
+    hidden_size = 32
+    num_layers = 1
     
+    X, y = [], []
+    for i in range(len(data_scaled) - seq_len):
+        X.append(data_scaled[i:i+seq_len])
+        y.append(data_scaled[i+seq_len])
+    
+    X = torch.tensor(np.array(X), dtype=torch.float32)
+    y = torch.tensor(np.array(y), dtype=torch.float32)
+
+    model = NationalCrimeLSTM(len(features), hidden_size, num_layers, len(features))
+    criterion = nn.MSELoss()
+    optimizer = torch.optim.Adam(model.parameters(), lr=0.001, weight_decay=1e-4)
+
+    # 4. Training (National Training)
+    print("   - Training Unified National Forecasting Engine...")
+    for epoch in range(400):
+        model.train()
+        outputs = model(X)
+        optimizer.zero_grad()
+        loss = criterion(outputs, y)
+        loss.backward()
+        optimizer.step()
+
+    # 5. Rolling Forecast (2024 to 2030)
+    print("   - Generating Rolling Forecast till 2030...")
+    current_sequence = data_scaled[-seq_len:]
     final_forecasts = []
 
-    # 4. Training (One model per state for maximum precision in recursive mode)
-    for state in states:
-        state_data = df_scaled[df_scaled['State'] == state][features].values
+    for year in range(2024, 2031):
+        input_seq = torch.tensor(current_sequence.reshape(1, seq_len, -1), dtype=torch.float32)
+        model.eval()
+        with torch.no_grad():
+            pred = model(input_seq).numpy()
         
-        # Prepare sequences for training
-        X, y = [], []
-        for i in range(len(state_data) - sequence_length):
-            X.append(state_data[i:i+sequence_length])
-            y.append(state_data[i+sequence_length])
+        # Invert scaling
+        pred_unscaled = scaler.inverse_transform(pred).flatten()
+        final_forecasts.append({'State': 'India_Total', 'Year': year, **dict(zip(features, pred_unscaled))})
         
-        X = torch.tensor(np.array(X), dtype=torch.float32)
-        y = torch.tensor(np.array(y), dtype=torch.float32)
+        # Prepare for next rolling step
+        current_sequence = np.append(current_sequence[1:], pred, axis=0)
 
-        model = CrimeLSTM(len(features), hidden_size, num_layers, len(features))
-        criterion = nn.MSELoss()
-        optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
-
-        # Training loop
-        print(f"   - Training Vision-Model for {state}...")
-        for epoch in range(num_epochs):
-            outputs = model(X)
-            optimizer.zero_grad()
-            loss = criterion(outputs, y)
-            loss.backward()
-            optimizer.step()
-
-        # 5. Recursive Forecasting (2024 to 2030)
-        # Start with the last known sequence (2021, 2022, 2023)
-        current_sequence = state_data[-sequence_length:]
-        state_forecasts = []
-
-        for year in range(2024, 2031):
-            input_seq = torch.tensor(current_sequence.reshape(1, sequence_length, -1), dtype=torch.float32)
-            with torch.no_grad():
-                pred = model(input_seq).numpy()
-            
-            state_forecasts.append({'State': state, 'Year': year, **dict(zip(features, pred[0]))})
-            
-            # Update sequence (remove oldest, add newest prediction)
-            current_sequence = np.append(current_sequence[1:], pred, axis=0)
-
-        final_forecasts.extend(state_forecasts)
-
-    # 6. Save and Invert Scaling
+    # 6. Save results
     forecast_df = pd.DataFrame(final_forecasts)
-    forecast_df[features] = scaler.inverse_transform(forecast_df[features])
+    # Ensure no negative predictions
+    numerical_cols = [c for c in forecast_df.columns if c not in ['State', 'Year']]
+    forecast_df[numerical_cols] = forecast_df[numerical_cols].clip(lower=0)
     
-    # Clip negative values (as crime cannot be negative)
-    forecast_df[features] = forecast_df[features].clip(lower=0)
-    
-    output_file = os.path.join(OUTPUT_DIR, "forecast_2030.csv")
+    output_file = os.path.join(OUTPUT_DIR, "national_forecast_2030.csv")
     forecast_df.to_csv(output_file, index=False)
     
     print("\n" + "="*40)
-    print("🎯 VISION 2030 FORECAST COMPLETE")
-    print(f"Data saved: {output_file}")
+    print("NATIONAL VISION 2030 COMPLETE")
+    print(f"Prophetic Data saved: {output_file}")
     print("="*40)
 
 if __name__ == "__main__":
-    run_vision_2030()
+    run_national_vision_2030()

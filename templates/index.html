@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +12,7 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body class="dark-theme">
     <div class="app-container">
         <!-- Sidebar -->
@@ -27,8 +29,11 @@
                 <li data-tab="vision30"><i class="fas fa-eye"></i> Vision 2030</li>
             </ul>
             <div class="sidebar-footer">
-                <p>CrimeScrape Intelligence v3.0</p>
-                <span>Senior Data Scientist Edition</span>
+                <p>CrimeScrape Intelligence</p>
+                <div class="status-indicator">
+                    <span class="pulse"></span>
+                    <span style="font-size: 0.7rem; color: #10b981; font-weight: bold;"></span>
+                </div>
             </div>
         </nav>
 
@@ -57,11 +62,11 @@
                         <p class="value highlight" id="worst-state">DELHI (UT)</p>
                         <span class="subtext">Statistical Outlier (Z=3.06)</span>
                     </div>
-                    <div class="stat-card glass">
+                    <!-- <div class="stat-card glass">
                         <h3>Reporting Consistency</h3>
                         <p class="value" id="consistency">Variable</p>
                         <span class="subtext">CV > 0.5 (All States)</span>
-                    </div>
+                    </div> -->
                 </div>
 
                 <div class="main-grid">
@@ -74,14 +79,14 @@
                             <img src="/plots/advanced/heatmap_state_vs_category.png" alt="National Heatmap">
                         </div>
                     </div>
-                    <div class="card glass report-card">
-                        <div class="card-header">
+                    <!-- <div class="card glass report-card">
+                         <div class="card-header">
                             <h3>Latest Intelligence Report</h3>
-                        </div>
+                        </div> 
                         <div class="report-box" id="report-text">
                             Loading intelligence data...
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </section>
 
@@ -90,7 +95,8 @@
             <section id="regional-map" class="tab-content">
                 <div class="section-header">
                     <h2>Indian National Heatmap</h2>
-                    <p class="subtext">Geospatial intensity audit mapping projected threat density across 36 States and Union Territories for 2026.</p>
+                    <p class="subtext">Geospatial intensity audit mapping projected threat density across 36 States and
+                        Union Territories for 2026.</p>
                 </div>
                 <div class="map-controls glass">
                     <label>Select Domain View:</label>
@@ -110,7 +116,8 @@
             <section id="comparison-lab" class="tab-content">
                 <div class="section-header">
                     <h2>Comparative Intelligence Lab</h2>
-                    <p class="subtext">Dual-vector benchmarking assessing standardized vulnerability across two selected regions to identify regional variances.</p>
+                    <p class="subtext">Dual-vector benchmarking assessing standardized vulnerability across two selected
+                        regions to identify regional variances.</p>
                 </div>
                 <div class="comparison-header glass">
                     <div class="comp-col">
@@ -123,7 +130,7 @@
                         <select id="comp-state-2" class="state-dd"></select>
                     </div>
                 </div>
-                
+
                 <div class="comparison-domain-bar">
                     <select id="comp-domain-select">
                         <option value="Women">Women Crimes</option>
@@ -148,15 +155,16 @@
                 <div class="predictor-container glass">
                     <div class="form-section">
                         <h2>Threat Forecasting Center</h2>
-                        <p class="subtext">Multi-model ensemble (Linear, Ridge, Lasso) providing high-precision 2026 intelligence projections calibrated for state-specific domain volatility.</p>
-                        
+                        <p class="subtext">Multi-model ensemble (Linear, Ridge, Lasso) providing high-precision 2026
+                            intelligence projections calibrated for state-specific domain volatility.</p>
+
                         <div class="input-group">
                             <label>Target State/UT</label>
                             <select id="state-select">
                                 <option>Loading states...</option>
                             </select>
                         </div>
-                        
+
                         <div class="input-group">
                             <label>Crime Domain</label>
                             <select id="domain-select">
@@ -166,7 +174,7 @@
                                 <option value="Human Traficking">Human Trafficking</option>
                             </select>
                         </div>
-                        
+
                         <button id="predict-btn" class="primary-btn">Generate Forcast (2026)</button>
                     </div>
 
@@ -196,8 +204,8 @@
                 <div class="card glass forecast-card hero-card">
                     <div class="card-header">
                         <div class="header-main">
-                            <h3>Vision 2030: Long-Range Intelligence Projection</h3>
-                            <p class="subtext">Temporal intelligence engine (LSTM) analyzing 500+ historical vectors to project standardized crime intensity through the 2030 horizon.</p>
+                            <h3>Vision 2030: Integrated National Intelligence Projection</h3>
+                            <p class="subtext"></p>
                         </div>
                         <div class="chart-controls">
                             <select id="v30-domain-select" class="glass-select">
@@ -207,9 +215,7 @@
                                 <option value="juvenile">Juvenile Justice Interaction</option>
                                 <option value="trafficking">Human Trafficking Density</option>
                             </select>
-                            <select id="v30-state-select" class="glass-select">
-                                <option>Select State</option>
-                            </select>
+                            <!-- State Select removed for Unified National Vision -->
                         </div>
                     </div>
                     <div class="chart-box">
@@ -223,7 +229,8 @@
                         <div class="card-header">
                             <div class="header-main">
                                 <h3>Neural Risk Audit (2030)</h3>
-                                <p class="subtext">Dynamic classification (ANN) fusing absolute intensity with trend momentum (Magnitude + Velocity).</p>
+                                <p class="subtext">Dynamic classification (ANN) fusing absolute intensity with trend
+                                    momentum (Magnitude + Velocity).</p>
                             </div>
                             <span class="tag">AI Classification</span>
                         </div>
@@ -245,7 +252,8 @@
                         <div class="card-header">
                             <div class="header-main">
                                 <h3>Regional Spillover Index</h3>
-                                <p class="subtext">Spatial Intelligence mapping (GNN) to measure how trend influence propagates across state borders.</p>
+                                <p class="subtext">Spatial Intelligence mapping (GNN) to measure how trend influence
+                                    propagates across state borders.</p>
                             </div>
                             <span class="tag">GNN Mapping</span>
                         </div>
@@ -257,4 +265,5 @@
     </div>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
+
 </html>
